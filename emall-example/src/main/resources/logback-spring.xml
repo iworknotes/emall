@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_PATH" value="/Users/Binary/Downloads/logs/emall-example"/>
+    <property name="DIR_DEBUG" value="debug"/>
+    <property name="DIR_INFO" value="info"/>
+    <property name="DIR_WARN" value="warn"/>
+    <property name="DIR_ERROR" value="error"/>
+
+    <!--控制台输出-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%p %d{yyyy/MM/dd HH:mm:ss} [%t][%c.%M] - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--INFO文件输出-->
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%p %d{yyyy/MM/dd HH:mm:ss} [%t][%c.%M] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${DIR_INFO}/log-info-%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--DEBUG文件输出-->
+    <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%p %d{yyyy/MM/dd HH:mm:ss} [%t][%c.%M] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${DIR_DEBUG}/log-debug-%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--WARN文件输出-->
+    <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%p %d{yyyy/MM/dd HH:mm:ss} [%t][%c.%M] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${DIR_WARN}/log-warn-%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--ERROR文件输出-->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%p %d{yyyy/MM/dd HH:mm:ss} [%t][%c.%M] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${DIR_ERROR}/log-error-%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--基础日志输出级别-->
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_DEBUG"/>
+        <appender-ref ref="FILE_INFO"/>
+        <appender-ref ref="FILE_WARN"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+
+<!--    <logger name="com.cc.example.dao" level="DEBUG"/>-->
+
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.mybatis" level="WARN"/>
+    <logger name="com.netflix.discovery" level="WARN"/>
+    <logger name="org.apache.activemq" level="WARN"/>
+    <logger name="org.apache.http" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+
+</configuration>
